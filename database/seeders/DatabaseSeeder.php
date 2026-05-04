@@ -34,10 +34,11 @@ class DatabaseSeeder extends Seeder
 
         // Create Admin User
         $admin = User::updateOrCreate(
-            ['email' => 'admin@thingy.com'],
+            ['role' => 'admin'],
             [
                 'name' => 'Admin',
-                'password' => Hash::make('admin123'),
+                'email' => 'admin@thingy-store.local',
+                'password' => Hash::make('N3wAdm1n#2026'),
                 'role' => 'admin',
                 'phone' => '03001234567',
                 'address' => 'Lahore, Pakistan',

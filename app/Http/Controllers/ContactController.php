@@ -30,7 +30,7 @@ class ContactController extends Controller
         ]);
 
         try {
-            Mail::to('admin@thingy.com')->send(new ContactMail($contact));
+            Mail::to('admin@thingy-store.local')->send(new ContactMail($contact));
         } catch (\Exception $e) {
             // Mail failed silently, contact still saved
         }
