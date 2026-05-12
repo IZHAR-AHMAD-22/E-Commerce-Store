@@ -124,7 +124,7 @@
                     <div class="bg-white rounded-lg shadow-md hover:shadow-lg transition duration-300 overflow-hidden group product-card relative">
                         <a href="{{ route('products.show', $product->slug) }}" class="absolute inset-0 z-10" aria-label="View {{ $product->name }}"></a>
                         <div class="relative z-20 overflow-hidden">
-                            <img src="{{ $product->image ? asset('storage/' . $product->image) : asset('images/placeholder.jpg') }}"
+                            <img src="{{ $product->image ? asset('storage/' . $product->image) : asset('images/placeholder.svg') }}"
                                  alt="{{ $product->name }}"
                                  class="w-full h-48 object-cover group-hover:scale-105 transition duration-300">
                             @if($product->discount > 0)

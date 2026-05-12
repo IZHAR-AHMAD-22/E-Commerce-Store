@@ -51,7 +51,7 @@
                 <div class="space-y-4">
                     @foreach($order->orderItems as $item)
                     <div class="flex items-center space-x-4">
-                        <img src="{{ $item->product_image ? asset('storage/' . $item->product_image) : asset('images/placeholder.jpg') }}" alt="{{ $item->product_name }}" class="w-16 h-16 object-cover rounded">
+                        <img src="{{ $item->product_image ? asset('storage/' . $item->product_image) : asset('images/placeholder.svg') }}" alt="{{ $item->product_name }}" class="w-16 h-16 object-cover rounded">
                         <div class="flex-1">
                             <h4 class="font-semibold">{{ $item->product_name }}</h4>
                             <p class="text-sm text-gray-600">Quantity: {{ $item->quantity }} | Price: ${{ number_format($item->unit_price, 2) }}</p>

@@ -19,7 +19,7 @@ class ProductController extends Controller
             ->addColumn('image', function ($product) {
                 $url = $product->image
                     ? asset('storage/' . $product->image)
-                    : asset('images/no-image.png');
+                    : asset('images/no-image.svg');
                 return '<img src="' . $url . '" width="60" 
                         height="60" style="object-fit:cover;
                         border-radius:8px;">';

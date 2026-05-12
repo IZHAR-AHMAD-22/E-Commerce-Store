@@ -245,6 +245,32 @@ class DatabaseSeeder extends Seeder
             ],
         ];
 
+        $imageFiles = [
+            '0aBqVWeqaEui6r46KGyxycVF2849gIznHGHsAX82.jpg',
+            '0ovvOE2snvcwzLwkmp89WWuJmjvVDTJwmk2YOtwE.jpg',
+            '7wTsK87Iohvw1UsQXRAPEczk74p0m5qvBVfhHaFx.jpg',
+            '80UCiO9plNo6xwP0AWTlKFPtM46YHbT3E6QWmP5s.jpg',
+            '8UUswAf4pB58daKO3wPxxLkPyZVKZF2xTmfE85dQ.jpg',
+            '9EhS7mzA4Fv0kEViMMcNpksHlKGhTkf7nOItYMjr.jpg',
+            'ctgJk8BohJGHpesK1Pnb2HRayFMIH2ORlubDBJjq.jpg',
+            'dzjLYSJ6DQGswWbuxrd5yjTsOHtBvLe35L82rGiF.jpg',
+            'FYWVmIHbm4pfrwCyhc7bbdLOtrCUIKZpMvJhsz4c.jpg',
+            'GCrAg3BzccPG86JiLbDnFKW05T6Nhp2mBIiyN1yD.jpg',
+            'LGWJzvocnK9iTllDC4SKrm0ISJbBrd5gHEjcXW4c.jpg',
+            'lLMGzMeGJWL2LU5MyfjA7QCWzhr5NIDtH8FLyAqv.webp',
+            'MhCD3GDCMrcKvkUkhLg7DdOsPVxtKefKsrnlFcyq.jpg',
+            'mXQxqk7rBcvcXlJlVE7DhNua4x4NpXXTwbSAZgjh.jpg',
+            'oHk0cCWKOM1osdTOc5AEpoxqiTFrawNmN6nkr7jC.jpg',
+            'RhR6QTsFh7dpy7ptYcu1TO9OAzOp81t1IepeVrMU.jpg',
+            'tGEv1KsYEUhGfp5G3cwTIUXsl2sQ8pDr1IsAwjnX.webp',
+            'V3lhAOS6QN13JkiiSehclMxsvlgqcYC3vB7UHe8I.jpg',
+            'vDkb05k8QTlO2uQunPAo3xx0mDrlleCrcq3zp6tW.jpg',
+            'WAYtihsylQl2DGDpd4BpX0ostnEwXNeRRkhuQZvG.jpg',
+            'YTjOabusPc9zZ1mNAAexxeaQee4UOTGSVN0lP9DQ.jpg',
+            'zJwND7h597PlH39NNXQSnKgnniFfk6DgCyijOt3z.jpg',
+            'ZSAgpBZDQa2xkj4l5MbPOdraSowK2SLXp1VYe5W3.jpg',
+        ];
+
         $products = [];
         foreach ($productsData as $index => $productData) {
             $product = Product::updateOrCreate(
@@ -257,7 +283,7 @@ class DatabaseSeeder extends Seeder
                     'sale_price' => null,
                     'stock' => $productData['stock'],
                     'category' => $productData['category'],
-                    'image' => 'products/default.jpg',
+                    'image' => 'products/' . $imageFiles[$index % count($imageFiles)],
                     'gallery' => null,
                     'is_featured' => $index < 8, // First 8 featured
                     'is_new_arrival' => $index >= 14, // Last 6 new arrivals

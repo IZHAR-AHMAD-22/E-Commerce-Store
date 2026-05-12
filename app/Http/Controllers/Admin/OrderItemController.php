@@ -17,7 +17,7 @@ class OrderItemController extends Controller
             ->addColumn('image', function ($item) {
                 $url = $item->product_image
                     ? asset('storage/' . $item->product_image)
-                    : asset('images/no-image.png');
+                    : asset('images/no-image.svg');
                 return '<img src="' . $url . '" width="50" 
                         height="50" style="object-fit:cover;
                         border-radius:6px;">';

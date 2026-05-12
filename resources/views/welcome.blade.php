@@ -79,7 +79,7 @@
                 @forelse($products ?? [] as $product)
                 <a href="{{ route('products.show', $product->slug) }}" class="block bg-white rounded-lg shadow-md hover:shadow-lg transition duration-300 overflow-hidden group">
                     <div class="relative overflow-hidden">
-                        <img src="{{ $product->image ? asset('storage/' . $product->image) : asset('images/placeholder.jpg') }}" alt="{{ $product->name }}" class="w-full h-48 object-cover group-hover:scale-105 transition duration-300">
+                        <img src="{{ $product->image ? asset('storage/' . $product->image) : asset('images/placeholder.svg') }}" alt="{{ $product->name }}" class="w-full h-48 object-cover group-hover:scale-105 transition duration-300">
                         @if(count($product->gallery ?? []) > 0)
                         <img src="{{ asset('storage/' . $product->gallery[0]) }}" alt="{{ $product->name }}" class="absolute inset-0 w-full h-48 object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                         @endif
