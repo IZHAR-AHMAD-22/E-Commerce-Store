@@ -74,4 +74,28 @@ class CheckoutController extends Controller
         $order = Order::with('orderItems')->findOrFail($id);
         return view('order-success', compact('order'));
     }
+
+    public function track()
+    {
+        return view('track-order');
+    }
+
+    public function showTrack(Request $request)
+    {
+        $request->validate([
+            'order_id' => 'required|integer|exists:orders,id',
+            'email' => 'required|email',
+        ]);
+
+        $order = Order::where('id', $request->order_id)
+            ->where('customer_email', $request->email)
+            ->with('orderItems')
+            ->first();
+
+        if (!$order) {
+            return back()->withErrors(['order_id' => 'Order not found or email does not match.']);
+        }
+
+        return view('track-order', compact('order'));
+    }
 }

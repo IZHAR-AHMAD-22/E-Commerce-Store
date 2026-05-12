@@ -197,6 +197,9 @@
                     <a href="{{ route('home') }}" class="navbar-link">Home</a>
                     <a href="{{ route('products.index') }}" class="navbar-link">Products</a>
                     <a href="{{ route('contact.index') }}" class="navbar-link">Contact</a>
+                    @auth
+                        <a href="{{ route('orders.index') }}" class="navbar-link">My Orders</a>
+                    @endauth
                 </div>
 
                 <!-- Right Side -->

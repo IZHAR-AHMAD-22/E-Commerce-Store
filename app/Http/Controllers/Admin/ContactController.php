@@ -2,6 +2,7 @@
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Contact;
+use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 
 class ContactController extends Controller
@@ -14,6 +15,16 @@ class ContactController extends Controller
     public function getData()
     {
         return DataTables::of(Contact::query())
+            ->addColumn('reply_status', function ($contact) {
+                if ($contact->reply) {
+                    return '<span style="background:#3B82F6;color:white;
+                            padding:3px 10px;border-radius:20px;
+                            font-size:12px;">Replied</span>';
+                }
+                return '<span style="background:#F59E0B;color:white;
+                        padding:3px 10px;border-radius:20px;
+                        font-size:12px;">Pending</span>';
+            })
             ->addColumn('is_read', function ($contact) {
                 if ($contact->is_read) {
                     return '<span style="background:#10B981;color:white;
@@ -46,7 +57,7 @@ class ContactController extends Controller
                         </button>
                     </form>';
             })
-            ->rawColumns(['is_read', 'actions'])
+            ->rawColumns(['reply_status', 'is_read', 'actions'])
             ->make(true);
     }
 
@@ -55,6 +66,23 @@ class ContactController extends Controller
         $contact = Contact::findOrFail($id);
         $contact->update(['is_read' => true]);
         return view('admin.contacts.show', compact('contact'));
+    }
+
+    public function reply(Request $request, $id)
+    {
+        $contact = Contact::findOrFail($id);
+
+        $request->validate([
+            'reply' => 'required|string|min:5',
+        ]);
+
+        $contact->update([
+            'reply' => $request->reply,
+            'replied_at' => now(),
+            'is_read' => true,
+        ]);
+
+        return redirect()->back()->with('success', 'Reply saved and visible to the customer on the website.');
     }
 
     public function markRead($id)

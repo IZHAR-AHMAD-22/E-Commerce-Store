@@ -21,7 +21,8 @@ class Order extends Model
         'final_amount',
         'status',
         'payment_method',
-        'order_note'
+        'order_note',
+        'admin_note',
     ];
 
     /**

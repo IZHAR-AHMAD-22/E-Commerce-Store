@@ -9,14 +9,15 @@ class Contact extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'name',
-        'email',
-        'subject',
-        'message',
-        'is_read',
-        'replied_at'
-    ];
+protected $fillable = [
+    'name',
+    'email',
+    'subject',
+    'message',
+    'reply',        
+    'replied_at',   
+    'is_read',      
+];
 
     protected function casts(): array
     {

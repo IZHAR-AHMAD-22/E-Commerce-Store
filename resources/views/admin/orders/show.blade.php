@@ -154,6 +154,12 @@
                         </option>
                     </select>
                 </div>
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Admin Message</label>
+                    <textarea name="admin_note" rows="4"
+                        class="form-control"
+                        style="border-radius:12px;padding:12px 16px;min-height:120px;resize:vertical;">{{ old('admin_note', $order->admin_note) }}</textarea>
+                </div>
                 <button type="submit" class="btn-pink w-100 py-3">
                     💾 Update Status
                 </button>

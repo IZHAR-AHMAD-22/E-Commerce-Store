@@ -1,8 +1,10 @@
 <?php
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
+use App\Mail\OrderStatusUpdated;
 use App\Models\Order;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Yajra\DataTables\Facades\DataTables;
 
 class OrderController extends Controller
@@ -53,12 +55,18 @@ class OrderController extends Controller
     public function updateStatus(Request $request, $id)
     {
         $request->validate([
-            'status' => 'required|in:pending,confirmed,
-                        processing,shipped,delivered,cancelled',
+            'status' => 'required|in:pending,confirmed,processing,shipped,delivered,cancelled',
+            'admin_note' => 'nullable|string|max:1000',
         ]);
 
         $order = Order::findOrFail($id);
-        $order->update(['status' => $request->status]);
+        $order->update([
+            'status' => $request->status,
+            'admin_note' => $request->admin_note,
+        ]);
+
+        Mail::to($order->customer_email)
+            ->send(new OrderStatusUpdated($order));
 
         return redirect()->back()
             ->with('success', 'Order status updated successfully!');

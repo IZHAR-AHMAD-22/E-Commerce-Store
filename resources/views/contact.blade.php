@@ -68,6 +68,43 @@
 
         {{-- Contact Form --}}
         <div class="lg:col-span-2">
+            <div class="bg-white rounded-2xl p-8 shadow-sm mb-6">
+                <h3 class="font-fredoka text-2xl text-gray-800 mb-6">
+                    Check Your Reply 💬
+                </h3>
+                <p class="text-gray-500 mb-4">
+                    Enter the email you used to contact us and see any reply from our team directly on the website.
+                </p>
+                <form action="{{ route('contact.index') }}" method="GET" class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <input type="email"
+                           name="email"
+                           value="{{ old('email', $searchEmail ?? '') }}"
+                           class="w-full border-2 border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:border-pink-400"
+                           placeholder="Your email address">
+                    <button type="submit"
+                        class="btn-primary w-full text-center text-lg py-3 sm:col-span-1">
+                        🔍 Check Reply
+                    </button>
+                </form>
+
+                @if(isset($searchEmail) && !$replyContact)
+                <div class="mt-4 p-4 rounded-2xl bg-yellow-50 border border-yellow-200 text-yellow-800">
+                    No reply has been posted yet for <strong>{{ $searchEmail }}</strong>. Check back later.
+                </div>
+                @endif
+
+                @if($replyContact)
+                <div class="mt-4 p-4 rounded-2xl bg-blue-50 border border-blue-200 text-blue-800">
+                    <h4 class="font-semibold mb-2">Reply from our support team</h4>
+                    <p class="mb-3">Subject: <strong>{{ $replyContact->subject }}</strong></p>
+                    <div class="bg-white p-4 rounded-xl border border-blue-100">
+                        <p class="text-gray-700 leading-relaxed">{{ $replyContact->reply }}</p>
+                        <p class="text-sm text-gray-500 mt-3">Replied on {{ $replyContact->replied_at->format('d M Y, h:i A') }}</p>
+                    </div>
+                </div>
+                @endif
+            </div>
+
             <div class="bg-white rounded-2xl p-8 shadow-sm">
                 <h3 class="font-fredoka text-2xl text-gray-800 mb-6">
                     Send Us a Message ✉️

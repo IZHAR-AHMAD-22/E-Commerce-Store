@@ -7,9 +7,19 @@ use Illuminate\Support\Facades\Mail;
 
 class ContactController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return view('contact');
+        $replyContact = null;
+        $searchEmail = $request->query('email');
+
+        if ($searchEmail) {
+            $replyContact = Contact::where('email', $searchEmail)
+                ->whereNotNull('reply')
+                ->orderByDesc('replied_at')
+                ->first();
+        }
+
+        return view('contact', compact('replyContact', 'searchEmail'));
     }
 
     public function store(Request $request)

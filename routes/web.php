@@ -48,11 +48,24 @@ Route::post('/checkout/place-order', [CheckoutController::class, 'store'])
 Route::get('/order-success/{id}', [CheckoutController::class, 'success'])
     ->name('checkout.success');
 
+Route::get('/track-order', [CheckoutController::class, 'track'])
+    ->name('orders.track');
+
+Route::post('/track-order', [CheckoutController::class, 'showTrack'])
+    ->name('orders.showTrack');
+
 Route::get('/contact', [ContactController::class, 'index'])
     ->name('contact.index');
 
 Route::post('/contact', [ContactController::class, 'store'])
     ->name('contact.store');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/orders', [\App\Http\Controllers\OrderController::class, 'index'])
+        ->name('orders.index');
+    Route::get('/orders/{id}', [\App\Http\Controllers\OrderController::class, 'show'])
+        ->name('orders.show');
+});
 
 // ─── Admin Routes ──────────────────────────────────────────
 Route::prefix('admin')
@@ -122,6 +135,8 @@ Route::prefix('admin')
         ->name('admin.contacts.data');
     Route::get('/contacts/{id}', [AdminContactController::class, 'show'])
         ->name('admin.contacts.show');
+    Route::post('/contacts/{id}/reply', [AdminContactController::class, 'reply'])
+        ->name('admin.contacts.reply');
     Route::post('/contacts/{id}/read', [AdminContactController::class, 'markRead'])
         ->name('admin.contacts.read');
 });

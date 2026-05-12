@@ -105,7 +105,17 @@
         <a href="{{ route('home') }}" class="btn-secondary text-lg px-8 py-4">
             🏠 Go Home
         </a>
+        @auth
+        <a href="{{ route('orders.show', $order->id) }}" class="btn-secondary text-lg px-8 py-4">
+            📦 Track Order
+        </a>
+        @endauth
     </div>
+    @guest
+    <p class="text-center text-gray-500 mt-6">
+        Log in to view more details and track this order from your account.
+    </p>
+    @endguest
 </section>
 
 @endsection

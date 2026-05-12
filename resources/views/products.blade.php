@@ -121,8 +121,9 @@
                 <!-- Products -->
                 <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6" id="productsGrid">
                     @forelse($products as $product)
-                    <div class="bg-white rounded-lg shadow-md hover:shadow-lg transition duration-300 overflow-hidden group product-card">
-                        <div class="relative overflow-hidden">
+                    <div class="bg-white rounded-lg shadow-md hover:shadow-lg transition duration-300 overflow-hidden group product-card relative">
+                        <a href="{{ route('products.show', $product->slug) }}" class="absolute inset-0 z-10" aria-label="View {{ $product->name }}"></a>
+                        <div class="relative z-20 overflow-hidden">
                             <img src="{{ $product->image ? asset('storage/' . $product->image) : asset('images/placeholder.jpg') }}"
                                  alt="{{ $product->name }}"
                                  class="w-full h-48 object-cover group-hover:scale-105 transition duration-300">
@@ -137,7 +138,7 @@
                             </div>
                             @endif
                         </div>
-                        <div class="p-4">
+                        <div class="p-4 relative z-20">
                             <h3 class="font-semibold text-lg mb-2 text-gray-800 hover:text-pink-600 transition duration-300">
                                 <a href="{{ route('products.show', $product->slug) }}">{{ $product->name }}</a>
                             </h3>
@@ -167,11 +168,11 @@
                                     @csrf
                                     <input type="hidden" name="product_id" value="{{ $product->id }}">
                                     <input type="hidden" name="quantity" value="1">
-                                    <button type="submit" class="w-full bg-pink-500 hover:bg-pink-600 text-white font-medium py-2 px-4 rounded-lg transition duration-300 transform hover:scale-105">
+                                    <button type="submit" class="relative z-20 w-full bg-pink-500 hover:bg-pink-600 text-white font-medium py-2 px-4 rounded-lg transition duration-300 transform hover:scale-105">
                                         Add to Cart
                                     </button>
                                 </form>
-                                <button class="p-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition duration-300 wishlist-btn" data-product-id="{{ $product->id }}">
+                                <button class="relative z-20 p-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition duration-300 wishlist-btn" data-product-id="{{ $product->id }}">
                                     <svg class="w-5 h-5 text-gray-600 hover:text-red-500 transition duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
                                     </svg>

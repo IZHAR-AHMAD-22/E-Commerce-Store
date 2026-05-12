@@ -77,9 +77,12 @@
             <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-gray-800">Featured Products</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                 @forelse($products ?? [] as $product)
-                <div class="bg-white rounded-lg shadow-md hover:shadow-lg transition duration-300 overflow-hidden group">
+                <a href="{{ route('products.show', $product->slug) }}" class="block bg-white rounded-lg shadow-md hover:shadow-lg transition duration-300 overflow-hidden group">
                     <div class="relative overflow-hidden">
                         <img src="{{ $product->image ? asset('storage/' . $product->image) : asset('images/placeholder.jpg') }}" alt="{{ $product->name }}" class="w-full h-48 object-cover group-hover:scale-105 transition duration-300">
+                        @if(count($product->gallery ?? []) > 0)
+                        <img src="{{ asset('storage/' . $product->gallery[0]) }}" alt="{{ $product->name }}" class="absolute inset-0 w-full h-48 object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        @endif
                         @if($product->discount > 0)
                         <div class="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 rounded-full text-sm font-bold">
                             -{{ $product->discount }}%
@@ -98,12 +101,17 @@
                                 <span class="text-gray-800 font-bold">${{ number_format($product->price, 2) }}</span>
                                 @endif
                             </div>
-                            <button class="bg-pink-500 hover:bg-pink-600 text-white px-4 py-2 rounded-full transition duration-300 transform hover:scale-105">
-                                Add to Cart
-                            </button>
+                            <form action="{{ route('cart.add') }}" method="POST" class="inline">
+                                @csrf
+                                <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                <input type="hidden" name="quantity" value="1">
+                                <button type="submit" class="bg-pink-500 hover:bg-pink-600 text-white px-4 py-2 rounded-full transition duration-300 transform hover:scale-105">
+                                    Add to Cart
+                                </button>
+                            </form>
                         </div>
                     </div>
-                </div>
+                </a>
                 @empty
                 <div class="col-span-full text-center py-12">
                     <p class="text-gray-500 text-lg">No featured products available at the moment.</p>

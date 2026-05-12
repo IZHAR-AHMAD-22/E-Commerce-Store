@@ -98,13 +98,43 @@
                 </div>
             </div>
 
+            {{-- Admin Reply --}}
+            @if($contact->reply)
+            <div class="mb-4">
+                <div class="p-4 rounded-3" style="background:#F3F4FF;
+                    border:1px solid #C7D2FE;">
+                    <span class="text-muted d-block mb-3" style="font-size:11px;
+                        text-transform:uppercase;letter-spacing:1px;">
+                        Admin Reply
+                    </span>
+                    <p style="font-size:15px;line-height:1.8;color:#1E293B;margin:0;">
+                        {{ $contact->reply }}
+                    </p>
+                </div>
+            </div>
+            @endif
+
+            {{-- Reply Form --}}
+            <div class="mb-4">
+                <form action="{{ route('admin.contacts.reply', $contact->id) }}"
+                      method="POST">
+                    @csrf
+                    <label class="form-label fw-bold" for="reply">Reply on Website</label>
+                    <textarea name="reply" id="reply" rows="5"
+                        class="form-control @error('reply') is-invalid @enderror"
+                        style="border-radius:16px; padding:16px; min-height:140px;"
+                        placeholder="Type your reply here...">{{ old('reply', $contact->reply) }}</textarea>
+                    @error('reply')
+                        <div class="invalid-feedback d-block">{{ $message }}</div>
+                    @enderror
+                    <button type="submit" class="btn-pink px-4 py-3 mt-3">
+                        💬 Send Reply
+                    </button>
+                </form>
+            </div>
+
             {{-- Action Buttons --}}
             <div class="d-flex gap-3 flex-wrap">
-                <a href="mailto:{{ $contact->email }}?subject=Re: {{ $contact->subject }}"
-                    class="btn-pink px-4 py-3">
-                    📧 Reply via Email
-                </a>
-
                 @if(!$contact->is_read)
                 <form action="{{ route('admin.contacts.read', $contact->id) }}"
                       method="POST" class="d-inline">

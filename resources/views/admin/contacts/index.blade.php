@@ -18,6 +18,7 @@
                     <th>Name</th>
                     <th>Email</th>
                     <th>Subject</th>
+                    <th>Reply</th>
                     <th>Status</th>
                     <th>Date</th>
                     <th>Actions</th>
@@ -41,6 +42,7 @@ $(document).ready(function () {
             { data: 'name', name: 'name' },
             { data: 'email', name: 'email' },
             { data: 'subject', name: 'subject' },
+            { data: 'reply_status', name: 'reply_status', orderable: false, searchable: false },
             { data: 'is_read', name: 'is_read' },
             { data: 'created_at', name: 'created_at' },
             { data: 'actions', name: 'actions', orderable: false, searchable: false },
